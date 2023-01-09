@@ -1,13 +1,12 @@
 #![no_std] // Dont use the Rust standard library
 #![no_main] // Dont use rust entry points
 
-// HELLO has the type of bytes representing the ASCII code of the character
-static HELLO: &[u8] = b"THIS IS INSANE!";
+mod vga_buffer;
 
 // reminder of what mangling is: https://en.wikipedia.org/wiki/Name_mangling
 #[no_mangle] // Dont mangle the function name
 pub extern "C" fn _start() -> ! {
-    write("hola");
+    write("awesome");
     loop {}
 }
 

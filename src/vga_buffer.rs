@@ -1,6 +1,3 @@
-use core::ops::Shl;
-use crate::vga_buffer::Color::{Black, Red, Yellow};
-
 #[allow(dead_code)]
 #[derive(PartialEq, Eq, Copy, Clone, Debug)]
 #[repr(u8)] // Displays memory as u8
@@ -23,13 +20,15 @@ pub enum Color {
     White = 15,
 }
 
+#[derive(PartialEq, Eq, Copy, Clone, Debug)]
 struct ColorCode(u8);
 impl ColorCode {
     fn new(background: Color, foreground: Color) -> ColorCode {
-        ColorCode(background << 4 | foreground)
+        ColorCode((background as u8) << 4 | (foreground as u8))
     }
 }
 
+#[allow(dead_code)]
 struct VgaChar {
     character: u8,
     color: ColorCode
@@ -81,7 +80,7 @@ impl Writer {
 pub fn write(s: &str) {
     let mut writer = Writer {
         column: 0,
-        color: ColorCode::new(Red, Black),
+        color: ColorCode::new(Color::Red, Color::Black),
         buffer: unsafe {&mut *(0xb8000 as *mut Buffer)}
     };
     writer.write(s)
