@@ -34,8 +34,8 @@ struct VgaChar {
     color: ColorCode
 }
 
-const BUFFER_HEIGHT: usize = 25;
-const BUFFER_WIDTH: usize = 80;
+const BUFFER_HEIGHT: usize =  25;
+const BUFFER_WIDTH: usize = 30;
 
 struct Buffer {
     chars: [[VgaChar; BUFFER_HEIGHT]; BUFFER_WIDTH]
