@@ -1,3 +1,7 @@
+use core::fmt;
+use core::fmt::Write;
+use volatile::Volatile;
+
 #[allow(dead_code)]
 #[derive(PartialEq, Eq, Copy, Clone, Debug)]
 #[repr(u8)] // Displays memory as u8
@@ -29,6 +33,7 @@ impl ColorCode {
 }
 
 #[allow(dead_code)]
+#[derive(PartialEq, Eq, Copy, Clone)]
 struct VgaChar {
     character: u8,
     color: ColorCode
@@ -38,7 +43,7 @@ const BUFFER_HEIGHT: usize =  25;
 const BUFFER_WIDTH: usize = 30;
 
 struct Buffer {
-    chars: [[VgaChar; BUFFER_HEIGHT]; BUFFER_WIDTH]
+    chars: [[Volatile<VgaChar>; BUFFER_HEIGHT]; BUFFER_WIDTH]
 }
 
 pub struct Writer {
@@ -47,7 +52,7 @@ pub struct Writer {
     buffer: &'static mut Buffer
 }
 impl Writer {
-    pub fn write(&mut self, s: &str) {
+    pub fn write_string(&mut self, s: &str) {
         for byte in s.bytes() {
             match byte {
                 0x20..=0x7e | b'\n' => self.write_byte(byte),
@@ -65,23 +70,45 @@ impl Writer {
             }
             let row = BUFFER_HEIGHT - 1;
             let col = self.column;
-            self.buffer.chars[row][col] = VgaChar {
+            self.buffer.chars[row][col].write(VgaChar {
                 character: byte,
                 color: self.color,
-            };
+            });
             self.column += 1;
         }
     }
     fn new_line(&mut self) {
-        // TODO: Add new line
+        for row in 1..BUFFER_HEIGHT {
+            for col in 0..BUFFER_WIDTH {
+                self.buffer.chars[row - 1][col].write(self.buffer.chars[row][col].read())
+            }
+        }
+        self.clear_row(BUFFER_HEIGHT - 1);
+        self.column = 0;
+    }
+    fn clear_row(&mut self, row: usize) {
+        let empty_char = VgaChar {
+            character: b' ',
+            color: self.color
+        };
+        for col in 0..BUFFER_WIDTH {
+            self.buffer.chars[row][col].write(empty_char);
+        }
+    }
+}
+
+impl Write for Writer {
+    fn write_str(&mut self, s: &str) -> fmt::Result {
+        self.write_string(s);
+        Ok(())
     }
 }
 
 pub fn write(s: &str) {
     let mut writer = Writer {
         column: 0,
-        color: ColorCode::new(Color::Red, Color::Black),
+        color: ColorCode::new(Color::Black, Color::LightRed),
         buffer: unsafe {&mut *(0xb8000 as *mut Buffer)}
     };
-    writer.write(s)
+    writeln!(writer, "{} {}", s, 3.0/2.0).unwrap();
 }
