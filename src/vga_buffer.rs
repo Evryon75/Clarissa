@@ -40,10 +40,10 @@ struct VgaChar {
 }
 
 const BUFFER_HEIGHT: usize =  25;
-const BUFFER_WIDTH: usize = 30;
+const BUFFER_WIDTH: usize = 80;
 
 struct Buffer {
-    chars: [[Volatile<VgaChar>; BUFFER_HEIGHT]; BUFFER_WIDTH]
+    chars: [[Volatile<VgaChar>; BUFFER_WIDTH]; BUFFER_HEIGHT]
 }
 
 pub struct Writer {
