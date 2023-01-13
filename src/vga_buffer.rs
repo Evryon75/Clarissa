@@ -65,9 +65,6 @@ impl Writer {
         if byte == b'\n' {
             self.new_line();
         } else {
-            if self.column > BUFFER_WIDTH {
-                self.new_line();
-            }
             let row = BUFFER_HEIGHT - 1;
             let col = self.column;
             self.buffer.chars[row][col].write(VgaChar {
@@ -83,17 +80,13 @@ impl Writer {
                 self.buffer.chars[row - 1][col].write(self.buffer.chars[row][col].read())
             }
         }
-        self.clear_row(BUFFER_HEIGHT - 1);
-        self.column = 0;
-    }
-    fn clear_row(&mut self, row: usize) {
-        let empty_char = VgaChar {
-            character: b' ',
-            color: self.color
-        };
         for col in 0..BUFFER_WIDTH {
-            self.buffer.chars[row][col].write(empty_char);
+            self.buffer.chars[BUFFER_HEIGHT - 1][col].write(VgaChar {
+                character: b' ',
+                color: self.color
+            });
         }
+        self.column = 0;
     }
 }
 
@@ -108,7 +101,8 @@ pub fn write(s: &str) {
     let mut writer = Writer {
         column: 0,
         color: ColorCode::new(Color::Black, Color::LightRed),
+        // Make a mutable pointer to the vga buffer, dereference it, and borrow it as a mutable Buffer
         buffer: unsafe {&mut *(0xb8000 as *mut Buffer)}
     };
-    writeln!(writer, "{} {}", s, 3.0/2.0).unwrap();
+    writeln!(writer, "{}", s).unwrap();
 }
