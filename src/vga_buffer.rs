@@ -1,5 +1,7 @@
 use core::fmt;
 use core::fmt::Write;
+use lazy_static::lazy_static;
+use spin::Mutex;
 use volatile::Volatile;
 
 #[allow(dead_code)]
@@ -25,9 +27,9 @@ pub enum Color {
 }
 
 #[derive(PartialEq, Eq, Copy, Clone, Debug)]
-struct ColorCode(u8);
+pub struct ColorCode(u8);
 impl ColorCode {
-    fn new(background: Color, foreground: Color) -> ColorCode {
+    pub fn new(background: Color, foreground: Color) -> ColorCode {
         ColorCode((background as u8) << 4 | (foreground as u8))
     }
 }
@@ -36,38 +38,38 @@ impl ColorCode {
 #[derive(PartialEq, Eq, Copy, Clone)]
 struct VgaChar {
     character: u8,
-    color: ColorCode
+    color: ColorCode,
 }
 
-const BUFFER_HEIGHT: usize =  25;
+const BUFFER_HEIGHT: usize = 25;
 const BUFFER_WIDTH: usize = 80;
 
 struct Buffer {
-    chars: [[Volatile<VgaChar>; BUFFER_WIDTH]; BUFFER_HEIGHT]
+    chars: [[Volatile<VgaChar>; BUFFER_WIDTH]; BUFFER_HEIGHT],
 }
 
 pub struct Writer {
     column: usize,
     color: ColorCode,
-    buffer: &'static mut Buffer
+    buffer: &'static mut Buffer,
 }
+
 impl Writer {
     pub fn write_string(&mut self, s: &str) {
         for byte in s.bytes() {
             match byte {
                 0x20..=0x7e | b'\n' => self.write_byte(byte),
-                _ => self.write_byte(0xfe)
+                _ => self.write_byte(0xfe),
             }
         }
     }
-
     pub fn write_byte(&mut self, byte: u8) {
         if byte == b'\n' {
             self.new_line();
         } else {
             let row = BUFFER_HEIGHT - 1;
             let col = self.column;
-            self.buffer.chars[row][col].write(VgaChar {
+            self.buffer.chars[row][col + 1].write(VgaChar {
                 character: byte,
                 color: self.color,
             });
@@ -83,10 +85,13 @@ impl Writer {
         for col in 0..BUFFER_WIDTH {
             self.buffer.chars[BUFFER_HEIGHT - 1][col].write(VgaChar {
                 character: b' ',
-                color: self.color
+                color: self.color,
             });
         }
         self.column = 0;
+    }
+    pub fn change_color(&mut self, color: ColorCode) {
+        self.color = color
     }
 }
 
@@ -97,12 +102,26 @@ impl Write for Writer {
     }
 }
 
-pub fn write(s: &str) {
-    let mut writer = Writer {
+lazy_static! {
+    pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
         column: 0,
-        color: ColorCode::new(Color::Black, Color::LightRed),
+        color: ColorCode::new(Color::Black, Color::Red),
         // Make a mutable pointer to the vga buffer, dereference it, and borrow it as a mutable Buffer
         buffer: unsafe {&mut *(0xb8000 as *mut Buffer)}
-    };
-    writeln!(writer, "{}", s).unwrap();
+    });
+}
+
+#[macro_export]
+macro_rules! print {
+    ($($arg:tt)*) => ($crate::vga_buffer::_print(format_args!($($arg)*)));
+}
+
+#[macro_export]
+macro_rules! println {
+    () => ($crate::print!("\n"));
+    ($($arg:tt)*) => ($crate::print!("{}\n", format_args!($($arg)*)));
+}
+#[doc(hidden)]
+pub fn _print(args: fmt::Arguments) {
+    WRITER.lock().write_fmt(args).unwrap();
 }
