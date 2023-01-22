@@ -3,6 +3,8 @@ use core::fmt::Write;
 use lazy_static::lazy_static;
 use spin::Mutex;
 use volatile::Volatile;
+#[allow(unused_imports)]
+use crate::vga_buffer::Color::*;
 
 #[allow(dead_code)]
 #[derive(PartialEq, Eq, Copy, Clone, Debug)]
@@ -105,7 +107,7 @@ impl Write for Writer {
 lazy_static! {
     pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
         column: 0,
-        color: ColorCode::new(Color::Black, Color::Red),
+        color: ColorCode::new(Color::Black, Color::White),
         // Make a mutable pointer to the vga buffer, dereference it, and borrow it as a mutable Buffer
         buffer: unsafe {&mut *(0xb8000 as *mut Buffer)}
     });
@@ -115,7 +117,6 @@ lazy_static! {
 macro_rules! print {
     ($($arg:tt)*) => ($crate::vga_buffer::_print(format_args!($($arg)*)));
 }
-
 #[macro_export]
 macro_rules! println {
     () => ($crate::print!("\n"));
