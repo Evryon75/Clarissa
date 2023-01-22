@@ -6,6 +6,7 @@ use volatile::Volatile;
 #[allow(unused_imports)]
 use crate::vga_buffer::Color::*;
 
+// Assigning values to the enums to be used in the ColorCode constructor
 #[allow(dead_code)]
 #[derive(PartialEq, Eq, Copy, Clone, Debug)]
 #[repr(u8)] // Displays memory as u8
@@ -32,7 +33,9 @@ pub enum Color {
 pub struct ColorCode(u8);
 impl ColorCode {
     pub fn new(background: Color, foreground: Color) -> ColorCode {
-        ColorCode((background as u8) << 4 | (foreground as u8))
+        // Bit manipulation operations
+        // the first 4 bits are used to specify the background color of the character, the last 4 are used to specify the foreground color
+        ColorCode((background as u8) << 4 | (foreground as u8)) // Somehow the enum values were not considered u8, a casting fixed this
     }
 }
 
@@ -47,13 +50,14 @@ const BUFFER_HEIGHT: usize = 25;
 const BUFFER_WIDTH: usize = 80;
 
 struct Buffer {
+    // A matrix of characters representing the cga buffer in the gpu ram
     chars: [[Volatile<VgaChar>; BUFFER_WIDTH]; BUFFER_HEIGHT],
 }
 
 pub struct Writer {
-    column: usize,
+    column: usize, // Starting column on the buffer matrix, used to know where the next character should be written
     color: ColorCode,
-    buffer: &'static mut Buffer,
+    buffer: &'static mut Buffer, // Needs to be mutable because we need to write to it
 }
 
 impl Writer {
@@ -78,7 +82,7 @@ impl Writer {
             self.column += 1;
         }
     }
-    fn new_line(&mut self) {
+    fn new_line(&mut self) { // Shifts the characters written on the buffer up by one row and clears the bottom row
         for row in 1..BUFFER_HEIGHT {
             for col in 0..BUFFER_WIDTH {
                 self.buffer.chars[row - 1][col].write(self.buffer.chars[row][col].read())
@@ -97,13 +101,14 @@ impl Writer {
     }
 }
 
-impl Write for Writer {
+impl Write for Writer { // Trait that allows formatting arguments
     fn write_str(&mut self, s: &str) -> fmt::Result {
         self.write_string(s);
-        Ok(())
+        Ok(()) // We return Ok(()) because with our buffer system we can be sure that we are only performing safe writes to memory
     }
 }
 
+// We need a static instance of Writer that is also mutable
 lazy_static! {
     pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
         column: 0,
