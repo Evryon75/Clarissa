@@ -1,10 +1,10 @@
+#[allow(unused_imports)]
+use crate::vga_buffer::Color::*;
 use core::fmt;
 use core::fmt::Write;
 use lazy_static::lazy_static;
 use spin::Mutex;
 use volatile::Volatile;
-#[allow(unused_imports)]
-use crate::vga_buffer::Color::*;
 
 // Assigning values to the enums to be used in the ColorCode constructor
 #[allow(dead_code)]
@@ -82,7 +82,8 @@ impl Writer {
             self.column += 1;
         }
     }
-    fn new_line(&mut self) { // Shifts the characters written on the buffer up by one row and clears the bottom row
+    fn new_line(&mut self) {
+        // Shifts the characters written on the buffer up by one row and clears the bottom row
         for row in 1..BUFFER_HEIGHT {
             for col in 0..BUFFER_WIDTH {
                 self.buffer.chars[row - 1][col].write(self.buffer.chars[row][col].read())
@@ -101,7 +102,8 @@ impl Writer {
     }
 }
 
-impl Write for Writer { // Trait that allows formatting arguments
+impl Write for Writer {
+    // Trait that allows formatting arguments
     fn write_str(&mut self, s: &str) -> fmt::Result {
         self.write_string(s);
         Ok(()) // We return Ok(()) because with our buffer system we can be sure that we are only performing safe writes to memory
