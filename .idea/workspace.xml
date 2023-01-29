@@ -7,10 +7,10 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2cb0a078-c275-463b-90b5-c87993363b07" name="Changes" comment="bro yes bro, on second thought hmmmm scripting language without the std lib hmmmmmmmmmmm hmmmmmmmmmmmmmmmmm yeah nah man im good i will make tetris though">
+    <list default="true" id="2cb0a078-c275-463b-90b5-c87993363b07" name="Changes" comment="Testing framework done">
+      <change afterPath="$PROJECT_DIR$/tests/should_panic.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testing/vga_print_tests.rs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/basic_boot.rs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/basic_boot.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,11 +88,26 @@
       <option name="project" value="LOCAL" />
       <updated>1674951591259</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="bro yes bro, on second thought hmmmm scripting language without the std lib hmmmmmmmmmmm hmmmmmmmmmmmmmmmmm yeah nah man im good i will make tetris though">
+      <created>1675019143532</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1675019143532</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Testing framework done">
+      <created>1675019164313</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1675019164313</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="bro yes bro, on second thought hmmmm scripting language without the std lib hmmmmmmmmmmm hmmmmmmmmmmmmmmmmm yeah nah man im good i will make tetris though" />
-    <option name="LAST_COMMIT_MESSAGE" value="bro yes bro, on second thought hmmmm scripting language without the std lib hmmmmmmmmmmm hmmmmmmmmmmmmmmmmm yeah nah man im good i will make tetris though" />
+    <MESSAGE value="Testing framework done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Testing framework done" />
   </component>
 </project>

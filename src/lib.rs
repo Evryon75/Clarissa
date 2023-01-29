@@ -70,7 +70,7 @@ pub enum ExitCode {
 }
 
 #[allow(dead_code)]
-fn exit_qemu(exit_code: ExitCode) {
+pub fn exit_qemu(exit_code: ExitCode) {
     unsafe {
         // Make a port at 0xf4 on the io port bus and pass the exit code as the result
         Port::new(0xf4).write(exit_code as u32);

@@ -4,7 +4,11 @@
 #![test_runner(clarissa::test_runner)]
 #![reexport_test_harness_main = "run_tests"]
 
-use clarissa::println_serial;
+#[allow(unused_imports)]
+use clarissa::color_macros::*;
+use clarissa::vga_buffer::Color::*;
+use clarissa::vga_buffer::*;
+use clarissa::*;
 use core::panic::PanicInfo;
 
 #[no_mangle]
@@ -15,8 +19,14 @@ pub extern "C" fn _start() -> ! {
     loop {}
 }
 
+#[test_case]
+fn printing() {
+    println!("Test print");
+    lightredln!("Test color print");
+}
+
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
-    clarissa::test_panic(info);
+    test_panic(info);
     loop {}
 }
