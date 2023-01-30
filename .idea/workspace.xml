@@ -7,7 +7,7 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2cb0a078-c275-463b-90b5-c87993363b07" name="Changes" comment="Added panic tests">
+    <list default="true" id="2cb0a078-c275-463b-90b5-c87993363b07" name="Changes" comment="Before git rebase (first git rebase of my life i hope i dont assblast the whole project)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -106,13 +106,21 @@
       <option name="project" value="LOCAL" />
       <updated>1675029485557</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Before git rebase (first git rebase of my life i hope i dont assblast the whole project)">
+      <created>1675111999578</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1675111999578</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="bro yes bro, on second thought hmmmm scripting language without the std lib hmmmmmmmmmmm hmmmmmmmmmmmmmmmmm yeah nah man im good i will make tetris though" />
     <MESSAGE value="Testing framework done" />
     <MESSAGE value="Added panic tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added panic tests" />
+    <MESSAGE value="Before git rebase (first git rebase of my life i hope i dont assblast the whole project)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Before git rebase (first git rebase of my life i hope i dont assblast the whole project)" />
   </component>
 </project>
