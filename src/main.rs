@@ -10,8 +10,8 @@ use clarissa::vga_buffer::Color::*;
 use clarissa::vga_buffer::*;
 use clarissa::*;
 
-const VER: &str = "0.1.4"; // y.x.z = Section Z from chapter X, if Y is 0 the guide isn't finished, if its 1 or above it is
-const NAME: &str = "testing more like";
+const VER: &str = "0.2.0"; // y.x.z = Section Z from chapter X, if Y is 0 the guide isn't finished, if its 1 or above it is
+const NAME: &str = "try to remove old commits without breaking\nEVERYTHINNG CHALLENGE [IMPOSSOBLE 0.000000001% ONLY]";
 
 // reminder of what mangling is: https://en.wikipedia.org/wiki/Name_mangling
 #[no_mangle] // Dont mangle the function name
