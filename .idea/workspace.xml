@@ -7,11 +7,8 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2cb0a078-c275-463b-90b5-c87993363b07" name="Changes" comment="Testing framework done">
-      <change afterPath="$PROJECT_DIR$/tests/should_panic.rs" afterDir="false" />
+    <list default="true" id="2cb0a078-c275-463b-90b5-c87993363b07" name="Changes" comment="Added panic tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/basic_boot.rs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/basic_boot.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,12 +99,20 @@
       <option name="project" value="LOCAL" />
       <updated>1675019164313</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added panic tests">
+      <created>1675029485557</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1675029485557</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="bro yes bro, on second thought hmmmm scripting language without the std lib hmmmmmmmmmmm hmmmmmmmmmmmmmmmmm yeah nah man im good i will make tetris though" />
     <MESSAGE value="Testing framework done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Testing framework done" />
+    <MESSAGE value="Added panic tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added panic tests" />
   </component>
 </project>
