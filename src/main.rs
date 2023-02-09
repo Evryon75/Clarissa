@@ -28,22 +28,10 @@ fn panic(_info: &core::panic::PanicInfo) -> ! {
     loop {}
 }
 
-#[test_case]
-fn function27() {
-    return ();
-}
 fn init() {
     redln!("Clarissa");
     darkgrayln!("        \\\\");
     lightgrayln!("          Ver {} - {}", VER, NAME);
-
-    /*
-    ERROR
-    #[test_case]
-    fn function27() {
-        return ();
-    }
-    */
 
     #[cfg(test)]
     println_serial!("\n          [main.rs]");
