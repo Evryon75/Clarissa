@@ -1,14 +1,19 @@
 #![no_std]
 #![cfg_attr(test, no_main)]
 #![feature(custom_test_frameworks)]
+#![feature(abi_x86_interrupt)]
 #![test_runner(crate::test_runner)]
 #![reexport_test_harness_main = "run_tests"]
 
 use core::panic::PanicInfo;
 use x86_64::instructions::port::Port;
 
+use crate::vga_buffer::Color::*;
+use crate::vga_buffer::ColorCode;
+
 #[path = "buffer/color_macros.rs"]
 pub mod color_macros;
+pub mod interrupts;
 #[path = "buffer/serial.rs"]
 pub mod serial;
 #[path = "buffer/vga_buffer.rs"]
@@ -17,9 +22,21 @@ pub mod vga_buffer;
 #[no_mangle]
 #[cfg(test)]
 pub extern "C" fn _start() -> ! {
+    init();
     println_serial!("\n          [lib.rs]");
     run_tests();
     loop {}
+}
+
+const VER: &str = "0.2.1"; // y.x.z = Section Z from chapter X, if Y is 0 the guide isn't finished, if its 1 or above it is
+const NAME: &str = "itnerrutps xd";
+
+pub fn init() {
+    redln!("Clarissa");
+    darkgrayln!("        \\\\");
+    lightgrayln!("          Ver {} - {}", VER, NAME);
+
+    interrupts::initialize_idt();
 }
 
 pub trait Test {

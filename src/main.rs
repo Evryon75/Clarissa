@@ -10,13 +10,15 @@ use clarissa::vga_buffer::Color::*;
 use clarissa::vga_buffer::*;
 use clarissa::*;
 
-const VER: &str = "0.2.0"; // y.x.z = Section Z from chapter X, if Y is 0 the guide isn't finished, if its 1 or above it is
-const NAME: &str = "try to remove old commits without breaking\nEVERYTHINNG CHALLENGE [IMPOSSOBLE 0.000000001% ONLY]";
-
 // reminder of what mangling is: https://en.wikipedia.org/wiki/Name_mangling
 #[no_mangle] // Dont mangle the function name
 pub extern "C" fn _start() -> ! {
     init();
+
+    x86_64::instructions::interrupts::int3();
+
+    #[cfg(test)]
+    run_tests();
     loop {}
 }
 
@@ -26,17 +28,6 @@ fn panic(_info: &core::panic::PanicInfo) -> ! {
     // Modern registry for kernel panics 😌
     lightredln!("Bruh moment! {}", _info);
     loop {}
-}
-
-fn init() {
-    redln!("Clarissa");
-    darkgrayln!("        \\\\");
-    lightgrayln!("          Ver {} - {}", VER, NAME);
-
-    #[cfg(test)]
-    println_serial!("\n          [main.rs]");
-    #[cfg(test)]
-    run_tests();
 }
 
 // Plans: Make tetris IN the operating system insanity
