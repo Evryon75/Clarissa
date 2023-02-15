@@ -15,8 +15,6 @@ use clarissa::*;
 pub extern "C" fn _start() -> ! {
     init();
 
-    x86_64::instructions::interrupts::int3();
-
     #[cfg(test)]
     run_tests();
     loop {}
