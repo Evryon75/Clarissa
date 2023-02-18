@@ -29,7 +29,7 @@ pub extern "C" fn _start() -> ! {
 }
 
 const VER: &str = "0.2.1"; // y.x.z = Section Z from chapter X, if Y is 0 the guide isn't finished, if its 1 or above it is
-const NAME: &str = "itnerrutps xd";
+const NAME: &str = "dude i just had the flu, couldnt code for a week (agony)";
 
 pub fn init() {
     redln!("Clarissa");
