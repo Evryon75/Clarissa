@@ -13,6 +13,7 @@ use crate::vga_buffer::ColorCode;
 
 #[path = "buffer/color_macros.rs"]
 pub mod color_macros;
+mod gdt;
 pub mod interrupts;
 #[path = "buffer/serial.rs"]
 pub mod serial;
@@ -28,14 +29,14 @@ pub extern "C" fn _start() -> ! {
     loop {}
 }
 
-const VER: &str = "0.2.1"; // y.x.z = Section Z from chapter X, if Y is 0 the guide isn't finished, if its 1 or above it is
+const VER: &str = "0.2.2"; // y.x.z = Section Z from chapter X, if Y is 0 the guide isn't finished, if its 1 or above it is
 const NAME: &str = "dude i just had the flu, couldnt code for a week (agony)";
 
 pub fn init() {
     redln!("Clarissa");
     darkgrayln!("        \\\\");
     lightgrayln!("          Ver {} - {}", VER, NAME);
-
+    gdt::init();
     interrupts::initialize_idt();
 }
 
