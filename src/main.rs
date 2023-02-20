@@ -17,7 +17,8 @@ pub extern "C" fn _start() -> ! {
 
     #[cfg(test)]
     run_tests();
-    loop {}
+
+    loop_hlt()
 }
 
 // Panic function
@@ -25,7 +26,8 @@ pub extern "C" fn _start() -> ! {
 fn panic(_info: &core::panic::PanicInfo) -> ! {
     // Modern registry for kernel panics 😌
     lightredln!("Bruh moment! {}", _info);
-    loop {}
+
+    loop_hlt()
 }
 
 // Plans: Make tetris IN the operating system insanity

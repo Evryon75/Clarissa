@@ -6,6 +6,7 @@
 #![reexport_test_harness_main = "run_tests"]
 
 use core::panic::PanicInfo;
+use x86_64::instructions;
 use x86_64::instructions::port::Port;
 
 use crate::vga_buffer::Color::*;
@@ -26,11 +27,17 @@ pub extern "C" fn _start() -> ! {
     init();
     println_serial!("\n          [lib.rs]");
     run_tests();
-    loop {}
+    loop_hlt()
 }
 
-const VER: &str = "0.2.2"; // y.x.z = Section Z from chapter X, if Y is 0 the guide isn't finished, if its 1 or above it is
-const NAME: &str = "dude i just had the flu, couldnt code for a week (agony)";
+const VER: &str = "0.2.3"; // y.x.z = Section Z from chapter X, if Y is 0 the guide isn't finished, if its 1 or above it is
+const NAME: &str = "we back at full speed baybee";
+
+pub fn loop_hlt() -> ! {
+    loop {
+        instructions::hlt();
+    }
+}
 
 pub fn init() {
     redln!("Clarissa");
@@ -38,6 +45,10 @@ pub fn init() {
     lightgrayln!("          Ver {} - {}", VER, NAME);
     gdt::init();
     interrupts::initialize_idt();
+    unsafe {
+        interrupts::PICS.lock().initialize();
+    }
+    instructions::interrupts::enable();
 }
 
 pub trait Test {
@@ -77,7 +88,7 @@ pub fn test_panic(_info: &PanicInfo) {
 #[panic_handler]
 fn panic(_info: &PanicInfo) -> ! {
     test_panic(_info);
-    loop {}
+    loop_hlt()
 }
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]

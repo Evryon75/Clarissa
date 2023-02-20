@@ -1,6 +1,7 @@
 use core::fmt::Write;
 use lazy_static::lazy_static;
 use spin::Mutex;
+use x86_64::instructions::interrupts;
 
 lazy_static! {
     pub static ref SERIAL: Mutex<uart_16550::SerialPort> = {
@@ -16,10 +17,12 @@ lazy_static! {
 
 #[doc(hidden)]
 pub fn _print(args: core::fmt::Arguments) {
-    SERIAL
-        .lock()
-        .write_fmt(args)
-        .expect("Failed to write serial");
+    interrupts::without_interrupts(|| {
+        SERIAL
+            .lock()
+            .write_fmt(args)
+            .expect("Failed to write serial");
+    });
 }
 
 #[macro_export]

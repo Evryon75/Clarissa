@@ -5,6 +5,7 @@ use core::fmt::Write;
 use lazy_static::lazy_static;
 use spin::Mutex;
 use volatile::Volatile;
+use x86_64::instructions::interrupts;
 
 // Assigning values to the enums to be used in the ColorCode constructor
 #[allow(dead_code)]
@@ -70,6 +71,12 @@ impl Writer {
         }
     }
     pub fn write_byte(&mut self, byte: u8) {
+        if self.column >= BUFFER_WIDTH - 2 {
+            self.column = 0;
+            for i in "\n".bytes() {
+                self.write_byte(i)
+            }
+        }
         if byte == b'\n' {
             self.new_line();
         } else {
@@ -131,5 +138,7 @@ macro_rules! println {
 }
 #[doc(hidden)]
 pub fn _print(args: fmt::Arguments) {
-    WRITER.lock().write_fmt(args).unwrap();
+    interrupts::without_interrupts(|| {
+        WRITER.lock().write_fmt(args).unwrap();
+    });
 }
