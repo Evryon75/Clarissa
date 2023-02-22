@@ -15,15 +15,9 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="152e23b8-c2dd-445a-979c-1063e37fd04a" name="Changes" comment="the 4 (added douible fault handler xdxsdx)">
+    <list default="true" id="152e23b8-c2dd-445a-979c-1063e37fd04a" name="Changes" comment="the 5 (added KEYBOARD STUFF WOOO)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/buffer/color_macros.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/buffer/color_macros.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/buffer/serial.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/buffer/serial.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/buffer/vga_buffer.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/buffer/vga_buffer.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/interrupts.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/interrupts.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -138,7 +132,9 @@
       <workItem from="1676462678433" duration="575000" />
       <workItem from="1676465364281" duration="53000" />
       <workItem from="1676742910322" duration="8169000" />
-      <workItem from="1676921312120" duration="5837000" />
+      <workItem from="1676921312120" duration="5945000" />
+      <workItem from="1676927292742" duration="46000" />
+      <workItem from="1677103780640" duration="341000" />
     </task>
     <task id="LOCAL-00001" summary="asd">
       <created>1675113097298</created>
@@ -210,7 +206,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676753756695</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="the 5 (added KEYBOARD STUFF WOOO)">
+      <created>1676927189997</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1676927189997</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -225,7 +228,8 @@
     <MESSAGE value="the" />
     <MESSAGE value="the 3" />
     <MESSAGE value="the 4 (added douible fault handler xdxsdx)" />
-    <option name="LAST_COMMIT_MESSAGE" value="the 4 (added douible fault handler xdxsdx)" />
+    <MESSAGE value="the 5 (added KEYBOARD STUFF WOOO)" />
+    <option name="LAST_COMMIT_MESSAGE" value="the 5 (added KEYBOARD STUFF WOOO)" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
